@@ -71,6 +71,100 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+// ==========================================
+// ==========================================
+// ==========================================
+// ==========================================
+console.log('================================');
+console.log('================================');
+console.log('================================');
+console.log('================================');
+console.log('SIMPLE ARRAY METHODS');
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+// SLICE - does not affect the original array
+console.log(arr.slice(2));
+console.log(arr.slice(2, 4));
+console.log(arr.slice(-2));
+console.log(arr.slice(1, -2));
+console.log(arr.slice());
+console.log([...arr]);
+
+// SPLICE - does affect the original array
+// console.log(arr.splice(2));
+arr.splice(-1);
+arr.splice(1, 2);
+console.log(arr);
+
+// REVERSE - does affect the original array
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h', 'g', 'j'];
+console.log(arr2.reverse());
+console.log(arr2);
+
+// CONCAT - does affect the original array
+const letters = arr.concat(arr2);
+console.log(letters);
+
+// or we can use the spread operator
+console.log([...arr, ...arr2]);
+
+// JOIN
+console.log(letters.join(' - '));
+
+// ==========================================
+// ==========================================
+// ==========================================
+// ==========================================
+console.log('================================');
+console.log('================================');
+console.log('================================');
+console.log('================================');
+console.log('THE NEW AT METHOD');
+
+const arr3 = [23, 11, 64];
+console.log(arr3[0]);
+console.log(arr3.at(0));
+
+// getting last array element
+console.log(arr3[arr3.length - 1]);
+console.log(arr3.slice(-1)[0]);
+
+console.log(arr3.at(-1));
+
+console.log('brandon'.at(0));
+console.log('brandon'.at(-1));
+
+// ==========================================
+// ==========================================
+// ==========================================
+// ==========================================
+console.log('================================');
+console.log('================================');
+console.log('================================');
+console.log('================================');
+console.log('LOOPING ARRAYS: forEach');
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}.`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}`);
+  }
+}
+
+console.log('========= forEach method ========');
+movements.forEach(function (mov, i, arr) {
+  if (mov > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${mov}.`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}`);
+  }
+});
