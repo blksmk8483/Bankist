@@ -65,11 +65,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -163,8 +163,61 @@ for (const [i, movement] of movements.entries()) {
 console.log('========= forEach method ========');
 movements.forEach(function (mov, i, arr) {
   if (mov > 0) {
-    console.log(`Movement ${i + 1}: You deposited ${mov}.`);
+    console.log(`Movement ${i + 1}: You deposited $${mov}`);
   } else {
-    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}`);
+    console.log(`Movement ${i + 1}: You withdrew $${Math.abs(mov)}`);
   }
 });
+
+const practiceArray = [123, 234, 423, 867, 5, 30, 9];
+practiceArray.forEach((yourmom, is) => console.log(`${is}: ${yourmom}`));
+
+// ==========================================
+// ==========================================
+// ==========================================
+// ==========================================
+console.log('================================');
+console.log('================================');
+console.log('================================');
+console.log('forEach WITH MAPS and SETS');
+
+// a new map holds a key-value pair
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+// longhand
+console.log('=====lonhand vs.=====');
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+console.log('=====arrow function vs.=====');
+
+currencies.forEach((yourmom, hey) => console.log(`${hey}: ${yourmom}`));
+// yourmom = the value so in currencies that is 'United States dollar'
+// hey = the key of each value
+
+// With a set
+const currenciesUnique = new Set(['USD', 'GDP', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
+
+currenciesUnique.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+const set1 = new Set([1, 2, 3, 4, 5, 5, 4, 3, 2, 1, 1, 2, 2, 2]);
+
+console.log(set1.has(1));
+// Expected output: true
+
+console.log(set1.has(5));
+// Expected output: true
+
+console.log(set1.has(6));
+// Expected output: false
+
+console.log(...set1);
+// 1 2 3 4 5
