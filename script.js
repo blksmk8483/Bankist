@@ -79,6 +79,20 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+// getting my username - desired result is first letter of each name as a lower case string combined
+
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLocaleLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+createUsernames(accounts);
+console.log(...accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -89,7 +103,7 @@ displayMovements(account1.movements);
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -264,101 +278,101 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // § Data 1: Julia's data [3, 5, 2, 12, 7], Kate's data [4, 1, 15, 8, 3] § Data 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 // Hints: Use tools from all lectures in this section so far 😉 GOOD LUCK 😀
 
-// Here was my solution....
-const dogsJulia = [3, 5, 2, 12, 7];
-const dogsKate = [4, 1, 15, 8, 3];
+// // Here was my solution....
+// const dogsJulia = [3, 5, 2, 12, 7];
+// const dogsKate = [4, 1, 15, 8, 3];
 
-// dogsJulia.shift();
-// dogsJulia.pop();
-// dogsJulia.pop();
-const correctedDogsJulia = dogsJulia.slice(1, -2);
+// // dogsJulia.shift();
+// // dogsJulia.pop();
+// // dogsJulia.pop();
+// const correctedDogsJulia = dogsJulia.slice(1, -2);
 
-const checkDogs = [...correctedDogsJulia, ...dogsKate];
-console.log(checkDogs);
+// const checkDogs = [...correctedDogsJulia, ...dogsKate];
+// console.log(checkDogs);
 
-checkDogs.forEach(function (age, i) {
-  if (age >= 3) {
-    console.log(`Dog number ${i + 1} is an adult, and is ${age} years old.`);
-  } else {
-    console.log(`Dog number ${i + 1} is still a puppy 🐶.`);
-  }
-});
+// checkDogs.forEach(function (age, i) {
+//   if (age >= 3) {
+//     console.log(`Dog number ${i + 1} is an adult, and is ${age} years old.`);
+//   } else {
+//     console.log(`Dog number ${i + 1} is still a puppy 🐶.`);
+//   }
+// });
 
-// Here was his solution....
-const checkDogs2 = function (dogsJulia, dogsKate) {
-  // 3 different ways I could have written this ---
-  const dogsJuliaCorrected = dogsJulia.slice(1, -2); // solution #1
-  // dogsJuliaCorrected.splice(0, 1); // solution #2
-  // dogsJuliaCorrected.splice(-2); // solution #2
-  // dogsJulia.slice(1, 3); // solution #3
+// // Here was his solution....
+// const checkDogs2 = function (dogsJulia, dogsKate) {
+//   // 3 different ways I could have written this ---
+//   const dogsJuliaCorrected = dogsJulia.slice(1, -2); // solution #1
+//   // dogsJuliaCorrected.splice(0, 1); // solution #2
+//   // dogsJuliaCorrected.splice(-2); // solution #2
+//   // dogsJulia.slice(1, 3); // solution #3
 
-  // 2 ways of writing this --
-  // const dogs = dogsJuliaCorrected.concat(dogsKate);
-  const dogs = [...dogsJuliaCorrected, ...dogsKate];
-  console.log(dogs);
+//   // 2 ways of writing this --
+//   // const dogs = dogsJuliaCorrected.concat(dogsKate);
+//   const dogs = [...dogsJuliaCorrected, ...dogsKate];
+//   console.log(dogs);
 
-  dogs.forEach(function (age, i) {
-    if (age >= 3) {
-      console.log(`Dog number ${i + 1} is an adult, and is ${age} years old.`);
-    } else {
-      console.log(`Dog number ${i + 1} is still a puppy 🐶.`);
-    }
-  });
-};
+//   dogs.forEach(function (age, i) {
+//     if (age >= 3) {
+//       console.log(`Dog number ${i + 1} is an adult, and is ${age} years old.`);
+//     } else {
+//       console.log(`Dog number ${i + 1} is still a puppy 🐶.`);
+//     }
+//   });
+// };
 
-checkDogs2([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+// checkDogs2([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 
-// // ==========================================
-// // ==========================================
-// // ==========================================
-// // ==========================================
-// console.log('================================');
-// console.log('================================');
-// console.log('================================');
-// console.log('DATA TRANSFORMATIONS: map, filter, reduce');
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('DATA TRANSFORMATIONS: map, filter, reduce');
 
-// map will give a new array
-const eurToUsd = 1.1;
+// // map will give a new array
+// const eurToUsd = 1.1;
 
-const movementUSD = movements.map(function (mov) {
-  return mov * eurToUsd;
-});
+// const movementUSD = movements.map(function (mov) {
+//   return mov * eurToUsd;
+// });
 
-console.log(movements);
-console.log(movementUSD);
+// console.log(movements);
+// console.log(movementUSD);
 
-// same but with a for of loop
-const movementsUSDfor = [];
-for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+// // same but with a for of loop
+// const movementsUSDfor = [];
+// for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
 
-console.log(movementsUSDfor);
+// console.log(movementsUSDfor);
 
-// with an arrow function
-const movementUSD2 = movements.map(mov => mov * eurToUsd);
+// // with an arrow function
+// const movementUSD2 = movements.map(mov => mov * eurToUsd);
 
-console.log(movementUSD2);
+// console.log(movementUSD2);
 
-//
-const movementsDescriptions = movements.map(
-  (mov, i, arr) =>
-    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} $${Math.abs(
-      mov
-    )}`
-);
+// // adding the forEach to display
+// const movementsDescriptions = movements.map(
+//   (mov, i, arr) =>
+//     `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} $${Math.abs(
+//       mov
+//     )}`
+// );
 
-console.log(...movementsDescriptions);
-movementsDescriptions.forEach(desc => console.log(desc));
+// console.log(...movementsDescriptions);
+// movementsDescriptions.forEach(desc => console.log(desc));
 
-//
-function displayMovements3(justaboutanything) {
-  const movementsDescriptions = justaboutanything.map(
-    (mov, i) =>
-      `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} $${Math.abs(
-        mov
-      )}`
-  );
+// // same as above but contained into one function
+// function displayMovements3(justaboutanything) {
+//   const movementsDescriptions = justaboutanything.map(
+//     (mov, i) =>
+//       `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} $${Math.abs(
+//         mov
+//       )}`
+//   );
 
-  movementsDescriptions.forEach(desc => console.log(desc));
-}
+//   movementsDescriptions.forEach(desc => console.log(desc));
+// }
 
-displayMovements3(movements);
+// displayMovements3(movements);
