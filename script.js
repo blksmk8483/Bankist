@@ -89,7 +89,7 @@ displayMovements(account1.movements);
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -307,3 +307,58 @@ const checkDogs2 = function (dogsJulia, dogsKate) {
 };
 
 checkDogs2([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+
+// // ==========================================
+// // ==========================================
+// // ==========================================
+// // ==========================================
+// console.log('================================');
+// console.log('================================');
+// console.log('================================');
+// console.log('DATA TRANSFORMATIONS: map, filter, reduce');
+
+// map will give a new array
+const eurToUsd = 1.1;
+
+const movementUSD = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+
+console.log(movements);
+console.log(movementUSD);
+
+// same but with a for of loop
+const movementsUSDfor = [];
+for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+
+console.log(movementsUSDfor);
+
+// with an arrow function
+const movementUSD2 = movements.map(mov => mov * eurToUsd);
+
+console.log(movementUSD2);
+
+//
+const movementsDescriptions = movements.map(
+  (mov, i, arr) =>
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} $${Math.abs(
+      mov
+    )}`
+);
+
+console.log(...movementsDescriptions);
+movementsDescriptions.forEach(desc => console.log(desc));
+
+//
+function displayMovements3(justaboutanything) {
+  const movementsDescriptions = justaboutanything.map(
+    (mov, i) =>
+      `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} $${Math.abs(
+        mov
+      )}`
+  );
+
+  movementsDescriptions.forEach(desc => console.log(desc));
+}
+
+displayMovements3(movements);
