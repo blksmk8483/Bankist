@@ -103,7 +103,7 @@ console.log(...accounts);
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -376,3 +376,29 @@ console.log(...accounts);
 // }
 
 // displayMovements3(movements);
+
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('THE FILTER Method');
+
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+
+console.log(movements);
+console.log('===Using FILTER method===');
+console.log(deposits);
+
+// same result using a for of loop
+const depositsFor = [];
+for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+console.log('===Using FOR...OF===');
+console.log(depositsFor);
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
