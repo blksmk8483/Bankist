@@ -61,10 +61,10 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (BobsYourUncle) {
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  BobsYourUncle.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -79,6 +79,12 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.innerHTML = `${balance} EUR`;
+};
+calcDisplayBalance(account1.movements);
+
 // getting my username - desired result is first letter of each name as a lower case string combined
 
 const createUsernames = function (accs) {
@@ -91,7 +97,7 @@ const createUsernames = function (accs) {
   });
 };
 createUsernames(accounts);
-console.log(...accounts);
+// console.log(...accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -402,3 +408,38 @@ console.log(depositsFor);
 
 const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals);
+
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('THE REDUCE Method');
+
+// acc = accumulator -> SNOWBALL
+// the acc needs an initial value, - that is why we are starting it at zero.
+const balance = movements.reduce(function (acc, cur, i, arr) {
+  console.log(`Iteration ${i}: $${acc}`);
+  return acc + cur;
+}, 0);
+const balance2 = movements.reduce((acc, cur, i, arr) => {
+  console.log(`Iteration ${i}: $${acc}`);
+  return acc + cur;
+}, 0);
+console.log(balance2);
+
+// same as above but as a for of loop
+let balance3 = 0;
+for (const mov of movements) balance3 += mov;
+console.log(balance3);
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// Maximum value
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+console.log(max);
