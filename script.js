@@ -443,3 +443,70 @@ const max = movements.reduce((acc, mov) => {
   else return mov;
 }, movements[0]);
 console.log(max);
+
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('CHALLENGE #2');
+
+// Let's go back to Julia and Kate's study about dogs. This time, they want to convert dog ages to human ages and calculate the average age of the dogs in their study.
+// Your tasks:
+// Create a function 'calcAverageHumanAge', which accepts an arrays of dog's ages ('ages'), and does the following things in order:
+// 1. Calculatethedogageinhumanyearsusingthefollowingformula:ifthedogis <= 2 years old, humanAge = 2 * dogAge. If the dog is > 2 years old, humanAge = 16 + dogAge * 4
+// 2. Excludealldogsthatarelessthan18humanyearsold(whichisthesameas keeping dogs that are at least 18 years old)
+// 3. Calculatetheaveragehumanageofalladultdogs(youshouldalreadyknow from other challenges how we calculate averages 😉)
+// 4. Runthefunctionforbothtestdatasets
+// Test data:
+// § Data1:[5,2,4,1,15,8,3] § Data2:[16,6,10,5,6,1,4]
+// GOOD LUCK 😀
+
+const DogAgeData1 = [5, 2, 4, 1, 15, 8, 3];
+const DogAgeData2 = [16, 6, 10, 5, 6, 1, 4];
+
+const calcAverageHumanAge = function (age) {
+  const dogToHuman = age.filter(function (age) {
+    let humanAge = 0;
+    if (age <= 2) {
+      humanAge = 2 * age;
+      console.log(
+        `Your dogs age is ${age} and in human years it is ${humanAge}.`
+      );
+    } else {
+      humanAge = 16 + age * 4;
+      if (humanAge > 18) {
+        console.log(
+          `Your dogs age is ${age} and in human years it is ${humanAge}.`
+        );
+      }
+    }
+  });
+};
+console.log('====DogsAgeData1====');
+calcAverageHumanAge(DogAgeData1);
+console.log('====DogsAgeData2====');
+calcAverageHumanAge(DogAgeData2);
+
+// Solution example
+const calcAverageHumanAge2 = function (ages) {
+  const humanAges = ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4));
+
+  const adults = humanAges.filter(age => age >= 18);
+  console.log(humanAges);
+  console.log(adults);
+
+  // I can write this 2 ways
+  const average = adults.reduce((acc, age) => acc + age, 0) / adults.length;
+  // const average =
+  //   adults.reduce((acc, age, i, arr) => acc + age, 0) / arr.length;
+
+  return average;
+};
+
+const avg1 = calcAverageHumanAge2(DogAgeData1);
+const avg2 = calcAverageHumanAge2(DogAgeData2);
+
+console.log(avg1, avg2);
