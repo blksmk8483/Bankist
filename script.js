@@ -70,7 +70,7 @@ const displayMovements = function (BobsYourUncle) {
     const html = `
     <div class="movements__row">
     <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-    <div class="movements__value">${mov}</div>
+    <div class="movements__value">${mov}€</div>
   </div>
   `;
 
@@ -81,9 +81,33 @@ displayMovements(account1.movements);
 
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.innerHTML = `${balance} EUR`;
+  labelBalance.innerHTML = `${balance}€`;
 };
 calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
 
 // getting my username - desired result is first letter of each name as a lower case string combined
 
@@ -338,7 +362,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // // console.log('DATA TRANSFORMATIONS: map, filter, reduce');
 
 // // map will give a new array
-// const eurToUsd = 1.1;
+const eurToUsd = 1.1;
 
 // const movementUSD = movements.map(function (mov) {
 //   return mov * eurToUsd;
@@ -510,3 +534,21 @@ const avg1 = calcAverageHumanAge2(DogAgeData1);
 const avg2 = calcAverageHumanAge2(DogAgeData2);
 
 console.log(avg1, avg2);
+
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('CHAINING METHODS');
+
+// const eurToUsd = 1.1;
+
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD);
