@@ -570,3 +570,20 @@ const calcAverageHumanAge3 = ages =>
 
 console.log(calcAverageHumanAge3(DogAgeData1));
 console.log(calcAverageHumanAge3(DogAgeData2));
+
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('THE FIND METHOD');
+
+const firstWithDrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithDrawal);
+
+console.log(accounts);
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
