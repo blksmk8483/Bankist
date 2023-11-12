@@ -179,6 +179,20 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+// Request Loan
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+
 // Close account
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
@@ -672,4 +686,20 @@ console.log(account);
 // // console.log('================================');
 // // console.log('================================');
 // // console.log('================================');
-// // console.log('THE FINDINDEX METHOD');
+// // console.log('THE some and every');
+
+console.log(movements);
+// Equality
+console.log(movements.includes(-130));
+
+// SOME: Condition
+const anyDeposits = movements.some(mov => mov > 0);
+
+console.log(anyDeposits);
+
+// EVERY
+console.log(movements.every(mov => mov > 0)); // false
+console.log(account4.movements.every(mov => mov > 0)); // true
+
+// Speerate callback
+const deposit = mov => mov > 0;
