@@ -798,3 +798,42 @@ console.log(movements);
 
 movements.sort((a, b) => b - a);
 console.log(movements);
+
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('MORE WAYS OF CREATING AND FILLING ARRAYS');
+
+const arr9 = [1, 2, 3, 4, 5, 6, 7];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+const x = new Array(7);
+console.log(x);
+
+// console.log(x.map(() => 5)); // This does not work...
+
+// x.fill(1);
+x.fill(1, 3);
+
+console.log(x);
+arr9.fill(23, 4, 6);
+console.log(arr9);
+
+// Array.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (cur, i) => i + 1);
+console.log(z);
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+});
