@@ -703,3 +703,44 @@ console.log(account4.movements.every(mov => mov > 0)); // true
 
 // Speerate callback
 const deposit = mov => mov > 0;
+
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('THE FLAT and FLATMAP');
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2));
+
+// ==== Practice getting the overall balance ====
+
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+// const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+
+// ==== Same as above but nested ====
+
+// using the flat method
+const overallBalance = accounts
+  .map(acc => acc.movements) // map over the movements of each of the acccounts and make a new array of each of the movements
+  .flat() // combine those arrays together
+  .reduce((acc, mov) => acc + mov, 0); // add the values together to get a total balance
+
+console.log(overallBalance); // should add up to 17840
+
+// using the flatMap method
+// this maps over the array and then flat
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overallBalance2);
