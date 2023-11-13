@@ -33,7 +33,13 @@ const account4 = {
   pin: 4444,
 };
 
-const accounts = [account1, account2, account3, account4];
+const account5 = {
+  owner: 'Rubie Knight',
+  movements: [430, 1000, -300, 700, -200, 50, 90],
+  interestRate: 1.2,
+  pin: 5555,
+};
+const accounts = [account1, account2, account3, account4, account5];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -62,10 +68,12 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // THIS DISPLAYS THE DEPOSITS AND WITHDRAWALS
-const displayMovements = function (BobsYourUncle) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  BobsYourUncle.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -212,6 +220,15 @@ btnClose.addEventListener('click', function (e) {
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+// Button Sort
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
@@ -744,3 +761,40 @@ const overallBalance2 = accounts
   .reduce((acc, mov) => acc + mov, 0);
 
 console.log(overallBalance2);
+
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // // ==========================================
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('================================');
+// // console.log('SORTING ARRAYS');
+
+// sort
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort());
+console.log(owners);
+
+// Numbers
+
+console.log(movements);
+// return < 0, A, B (keep order)
+// return > 0, B, A {switch order}
+
+// Ascending
+movements.sort((a, b) => {
+  if (a > b) return 1;
+  if (a < b) return -1;
+});
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+console.log(movements);
+
+// Descending
+movements.sort((a, b) => (a > b ? -1 : 1));
+console.log(movements);
+
+movements.sort((a, b) => b - a);
+console.log(movements);
