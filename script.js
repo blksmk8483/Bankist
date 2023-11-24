@@ -123,7 +123,7 @@ const displayMovements = function (movements, sort = false) {
     const html = `
     <div class="movements__row">
     <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-    <div class="movements__value">${mov}€</div>
+    <div class="movements__value">${mov.toFixed(2)}€</div>
   </div>
   `;
 
@@ -134,7 +134,7 @@ const displayMovements = function (movements, sort = false) {
 // CURRENT BALANCE THAT IS ON THE TOP RIGHT
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.innerHTML = `${acc.balance}€`;
+  labelBalance.innerHTML = `${acc.balance.toFixed(2)}€`;
 };
 
 // THE IN, OUT, and INTEREST BALANCE THAT IS BELOW THE TRANSACTIONS
@@ -142,12 +142,12 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -157,7 +157,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 // USERNAME LOGIC
@@ -235,7 +235,8 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(inputLoanAmount.value);
+
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
@@ -1107,3 +1108,52 @@ console.log(Number.isNaN(23 / 0));
 console.log(Number.isFinite(20));
 console.log(Number.isFinite('20'));
 console.log(Number.isFinite(+'20X'));
+
+// // // // ==========================================
+// // // // ==========================================
+// // // // ==========================================
+// // // // ==========================================
+// // // console.log('================================');
+// // // console.log('================================');
+// // // console.log('================================');
+// // // console.log('MATH AND ROUNDING');
+
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2));
+console.log(8 ** (1 / 3));
+
+console.log(Math.max(5, 18, 23, 11, 2)); // 23
+console.log(Math.max(5, 18, '23', 11, 2)); // 23
+console.log(Math.max(5, 18, '23px', 11, 2)); // NaN
+
+console.log(Math.min(5, 18, 23, 11, 2)); // 2
+
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+console.log(Math.trunc(Math.random() * 6) + 1);
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min) + 1) + min;
+
+console.log(randomInt(10, 20));
+
+// Rounding Integers
+console.log(Math.trunc(23.3)); // 23
+
+console.log(Math.round(23.3)); // 23
+console.log(Math.round(23.9)); // 24
+
+console.log(Math.ceil(23.3)); // 24
+console.log(Math.ceil(23.9)); // 24
+
+console.log(Math.floor(23.3)); // 23
+console.log(Math.floor(23.9)); // 23
+
+console.log(Math.trunc(-23.3)); // 23
+console.log(Math.floor(-23.3)); // 24
+
+// Rounding decimals
+console.log((2.7).toFixed(0));
+console.log((2.7).toFixed(3));
+console.log((2.345).toFixed(2));
+console.log(+(2.345).toFixed(2));
