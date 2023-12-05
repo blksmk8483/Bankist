@@ -186,6 +186,13 @@ const updateUI = function (acc) {
 // LOGIN USER, PIN, BUTTON
 let currentAccount;
 
+// Fake ALWAYS LOGGED IN
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+
+const now = new Date();
+
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
 
@@ -1194,3 +1201,86 @@ labelBalance.addEventListener('click', function () {
     if (i % 3 === 0) row.style.backgroundColor = 'blue';
   });
 });
+
+// // // // ==========================================
+// // // // ==========================================
+// // // // ==========================================
+// // // // ==========================================
+// // // console.log('================================');
+// // // console.log('================================');
+// // // console.log('================================');
+// // // console.log('NUMERIC SEPARATORS');
+
+// 287,460,000,000
+const diameter = 287_460_000_000;
+console.log(diameter);
+
+const priceCents = 345_99;
+console.log(priceCents);
+
+const transerFee1 = 15_00;
+const transerFee2 = 1_500;
+
+const PI = 3.1415;
+console.log(PI);
+
+console.log(Number('230000')); // 230000
+console.log(Number('230_000')); // NaN
+
+// // // // ==========================================
+// // // // ==========================================
+// // // // ==========================================
+// // // // ==========================================
+// // // console.log('================================');
+// // // console.log('================================');
+// // // console.log('================================');
+// // // console.log('WORKING WITH BIGINT');
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+
+console.log(12345678900987654589n);
+console.log(BigInt(12345678900987654589));
+
+// Operations
+console.log(10000n + 10000n);
+console.log(78235982735092834078234n * 8324672346234n);
+
+const huge = 82348234823482348n;
+const num = 23;
+console.log(huge * BigInt(num));
+
+// Exceptions
+console.log(20n > 15);
+console.log(20n === 20);
+console.log(typeof 20n);
+console.log(20n == '20');
+
+console.log(huge + 'is REALLY big!!!');
+
+// Division
+console.log(11n / 3n);
+console.log(10 / 3);
+
+// // // // ==========================================
+// // // // ==========================================
+// // // // ==========================================
+// // // // ==========================================
+// // // console.log('================================');
+// // // console.log('================================');
+// // // console.log('================================');
+// // // console.log('DATES AND TIMES');
+
+// const now = new Date();
+// console.log(now);
+
+// console.log(new Date('December 24, 2015'));
+
+// console.log(new Date(account1.movementsDates[0]));
+
+// console.log(new Date(0));
+
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+
+console.log(Date.now());
