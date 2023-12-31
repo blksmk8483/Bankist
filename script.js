@@ -133,6 +133,13 @@ const formatMovementDate = function (date, locale) {
   return new Intl.DateTimeFormat(locale).format(date);
 };
 
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
 // THIS DISPLAYS THE DEPOSITS AND WITHDRAWALS
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
@@ -147,11 +154,13 @@ const displayMovements = function (acc, sort = false) {
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovementDate(date, acc.locale);
 
+    const formattedMov = formatCur(mov, acc.locale, acc.currency);
+
     const html = `
     <div class="movements__row">
     <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
     <div class="movements__date">${displayDate}</div>
-    <div class="movements__value">${mov.toFixed(2)}€</div>
+    <div class="movements__value">${formattedMov}</div>
   </div>
   `;
 
@@ -162,7 +171,8 @@ const displayMovements = function (acc, sort = false) {
 // CURRENT BALANCE THAT IS ON THE TOP RIGHT
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.innerHTML = `${acc.balance.toFixed(2)}€`;
+
+  labelBalance.textContent = formatCur(acc.balance, acc.locale, acc.currency);
 };
 
 // THE IN, OUT, and INTEREST BALANCE THAT IS BELOW THE TRANSACTIONS
@@ -1368,3 +1378,27 @@ const calcDaysPassed = (date1, date2) =>
 
 const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24));
 console.log(days1);
+
+// ==========================================
+// ==========================================
+// ==========================================
+// ==========================================
+console.log('================================');
+console.log('================================');
+console.log('================================');
+console.log('INTERNATIONALIZING NUMBERS');
+
+const num4 = 3884764.23;
+
+const options = {
+  style: 'unit',
+  unit: 'mile-per-hour',
+};
+
+console.log('US:', new Intl.NumberFormat('en-US', options).format(num4));
+console.log('Germany:', new Intl.NumberFormat('de-DE', options).format(num4));
+console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(num4));
+console.log(
+  navigator.language,
+  new Intl.NumberFormat(navigator.language, options).format(num4)
+);
