@@ -221,13 +221,40 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+// Timer for the Logout timer
+const startLogOutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    // In each call, print the remaingin time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // When 0 seconds, stop the timer and logout the user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0;
+    }
+
+    // Decrease the time by 1s
+    time--;
+  };
+  // Set time to 5 minutes
+  let time = 300;
+  // Call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
+};
+
 // LOGIN USER, PIN, BUTTON
-let currentAccount;
+let currentAccount, timer;
 
 // Fake ALWAYS LOGGED IN
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 // Experimenting with Intl API
 
@@ -277,6 +304,9 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
+
     updateUI(currentAccount);
   }
 });
@@ -306,6 +336,10 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Updating the UI
     updateUI(currentAccount);
+
+    // Reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 });
 
@@ -316,14 +350,20 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
+
+    // Reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
   inputLoanAmount.value = '';
 });
@@ -1164,32 +1204,32 @@ btnSort.addEventListener('click', function (e) {
 
 // ===== Lectures =====
 
-console.log(23 === 23.0);
+// console.log(23 === 23.0);
 
-// Base 10 - 0 to 9
-// Binaray base 2 - 0
-console.log(0.1 + 0.2);
+// // Base 10 - 0 to 9
+// // Binaray base 2 - 0
+// console.log(0.1 + 0.2);
 
-console.log(Number('23'));
-console.log(+'23');
+// console.log(Number('23'));
+// console.log(+'23');
 
-// Parsing
-console.log(Number.parseInt('30px')); // 30
-console.log(Number.parseInt('e23')); //NaN
+// // Parsing
+// console.log(Number.parseInt('30px')); // 30
+// console.log(Number.parseInt('e23')); //NaN
 
-console.log(Number.parseInt(' 2.5rem '));
-console.log(Number.parseFloat(' 2.5rem '));
+// console.log(Number.parseInt(' 2.5rem '));
+// console.log(Number.parseFloat(' 2.5rem '));
 
-// Check if value is NaN
-console.log(Number.isNaN(20));
-console.log(Number.isNaN('20'));
-console.log(Number.isNaN(+'20X'));
-console.log(Number.isNaN(23 / 0));
+// // Check if value is NaN
+// console.log(Number.isNaN(20));
+// console.log(Number.isNaN('20'));
+// console.log(Number.isNaN(+'20X'));
+// console.log(Number.isNaN(23 / 0));
 
-// Checking if value is a number
-console.log(Number.isFinite(20));
-console.log(Number.isFinite('20'));
-console.log(Number.isFinite(+'20X'));
+// // Checking if value is a number
+// console.log(Number.isFinite(20));
+// console.log(Number.isFinite('20'));
+// console.log(Number.isFinite(+'20X'));
 
 // // // // ==========================================
 // // // // ==========================================
@@ -1200,205 +1240,224 @@ console.log(Number.isFinite(+'20X'));
 // // // console.log('================================');
 // // // console.log('MATH AND ROUNDING');
 
-console.log(Math.sqrt(25));
-console.log(25 ** (1 / 2));
-console.log(8 ** (1 / 3));
+// console.log(Math.sqrt(25));
+// console.log(25 ** (1 / 2));
+// console.log(8 ** (1 / 3));
 
-console.log(Math.max(5, 18, 23, 11, 2)); // 23
-console.log(Math.max(5, 18, '23', 11, 2)); // 23
-console.log(Math.max(5, 18, '23px', 11, 2)); // NaN
+// console.log(Math.max(5, 18, 23, 11, 2)); // 23
+// console.log(Math.max(5, 18, '23', 11, 2)); // 23
+// console.log(Math.max(5, 18, '23px', 11, 2)); // NaN
 
-console.log(Math.min(5, 18, 23, 11, 2)); // 2
+// console.log(Math.min(5, 18, 23, 11, 2)); // 2
 
-console.log(Math.PI * Number.parseFloat('10px') ** 2);
+// console.log(Math.PI * Number.parseFloat('10px') ** 2);
 
-console.log(Math.trunc(Math.random() * 6) + 1);
+// console.log(Math.trunc(Math.random() * 6) + 1);
 
-const randomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min) + 1) + min;
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min) + 1) + min;
 
-console.log(randomInt(10, 20));
+// console.log(randomInt(10, 20));
 
-// Rounding Integers
-console.log(Math.trunc(23.3)); // 23
+// // Rounding Integers
+// console.log(Math.trunc(23.3)); // 23
 
-console.log(Math.round(23.3)); // 23
-console.log(Math.round(23.9)); // 24
+// console.log(Math.round(23.3)); // 23
+// console.log(Math.round(23.9)); // 24
 
-console.log(Math.ceil(23.3)); // 24
-console.log(Math.ceil(23.9)); // 24
+// console.log(Math.ceil(23.3)); // 24
+// console.log(Math.ceil(23.9)); // 24
 
-console.log(Math.floor(23.3)); // 23
-console.log(Math.floor(23.9)); // 23
+// console.log(Math.floor(23.3)); // 23
+// console.log(Math.floor(23.9)); // 23
 
-console.log(Math.trunc(-23.3)); // 23
-console.log(Math.floor(-23.3)); // 24
+// console.log(Math.trunc(-23.3)); // 23
+// console.log(Math.floor(-23.3)); // 24
 
-// Rounding decimals
-console.log((2.7).toFixed(0));
-console.log((2.7).toFixed(3));
-console.log((2.345).toFixed(2));
-console.log(+(2.345).toFixed(2));
+// // Rounding decimals
+// console.log((2.7).toFixed(0));
+// console.log((2.7).toFixed(3));
+// console.log((2.345).toFixed(2));
+// console.log(+(2.345).toFixed(2));
 
-// // // // ==========================================
-// // // // ==========================================
-// // // // ==========================================
-// // // // ==========================================
-// // // console.log('================================');
-// // // console.log('================================');
-// // // console.log('================================');
-// // // console.log('THE REMAINDER OPERATOR');
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // console.log('================================');
+// // // // console.log('================================');
+// // // // console.log('================================');
+// // // // console.log('THE REMAINDER OPERATOR');
 
-// REMAINDER OPERATOR is the % symbol
+// // REMAINDER OPERATOR is the % symbol
 
-console.log(5 % 2); // 5 = 2 * 2 + 1
-console.log(5 / 2); // 2.5
+// console.log(5 % 2); // 5 = 2 * 2 + 1
+// console.log(5 / 2); // 2.5
 
-console.log(8 % 3); // 8 = 2 * 3 + 2
-console.log(8 / 3); // 2.66
+// console.log(8 % 3); // 8 = 2 * 3 + 2
+// console.log(8 / 3); // 2.66
 
-console.log(6 % 2); // 0
-console.log(6 / 2); // 3
+// console.log(6 % 2); // 0
+// console.log(6 / 2); // 3
 
-console.log(7 % 2); // 1
-console.log(7 / 2); // 3.5
+// console.log(7 % 2); // 1
+// console.log(7 / 2); // 3.5
 
-const isEven = n => n % 2 === 0;
-console.log(isEven(8)); // true
-console.log(isEven(23)); // false
-console.log(isEven(514)); // true
+// const isEven = n => n % 2 === 0;
+// console.log(isEven(8)); // true
+// console.log(isEven(23)); // false
+// console.log(isEven(514)); // true
 
-labelBalance.addEventListener('click', function () {
-  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
-    // 0, 2, 4, 6
-    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
-    // 0, 3, 6, 9
-    if (i % 3 === 0) row.style.backgroundColor = 'blue';
-  });
-});
+// labelBalance.addEventListener('click', function () {
+//   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+//     // 0, 2, 4, 6
+//     if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+//     // 0, 3, 6, 9
+//     if (i % 3 === 0) row.style.backgroundColor = 'blue';
+//   });
+// });
 
-// // // // ==========================================
-// // // // ==========================================
-// // // // ==========================================
-// // // // ==========================================
-// // // console.log('================================');
-// // // console.log('================================');
-// // // console.log('================================');
-// // // console.log('NUMERIC SEPARATORS');
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // console.log('================================');
+// // // // console.log('================================');
+// // // // console.log('================================');
+// // // // console.log('NUMERIC SEPARATORS');
 
-// 287,460,000,000
-const diameter = 287_460_000_000;
-console.log(diameter);
+// // 287,460,000,000
+// const diameter = 287_460_000_000;
+// console.log(diameter);
 
-const priceCents = 345_99;
-console.log(priceCents);
+// const priceCents = 345_99;
+// console.log(priceCents);
 
-const transerFee1 = 15_00;
-const transerFee2 = 1_500;
+// const transerFee1 = 15_00;
+// const transerFee2 = 1_500;
 
-const PI = 3.1415;
-console.log(PI);
+// const PI = 3.1415;
+// console.log(PI);
 
-console.log(Number('230000')); // 230000
-console.log(Number('230_000')); // NaN
+// console.log(Number('230000')); // 230000
+// console.log(Number('230_000')); // NaN
 
-// // // // ==========================================
-// // // // ==========================================
-// // // // ==========================================
-// // // // ==========================================
-// // // console.log('================================');
-// // // console.log('================================');
-// // // console.log('================================');
-// // // console.log('WORKING WITH BIGINT');
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // console.log('================================');
+// // // // console.log('================================');
+// // // // console.log('================================');
+// // // // console.log('WORKING WITH BIGINT');
 
-console.log(2 ** 53 - 1);
-console.log(Number.MAX_SAFE_INTEGER);
+// console.log(2 ** 53 - 1);
+// console.log(Number.MAX_SAFE_INTEGER);
 
-console.log(12345678900987654589n);
-console.log(BigInt(12345678900987654589));
+// console.log(12345678900987654589n);
+// console.log(BigInt(12345678900987654589));
 
-// Operations
-console.log(10000n + 10000n);
-console.log(78235982735092834078234n * 8324672346234n);
+// // Operations
+// console.log(10000n + 10000n);
+// console.log(78235982735092834078234n * 8324672346234n);
 
-const huge = 82348234823482348n;
-const num = 23;
-console.log(huge * BigInt(num));
+// const huge = 82348234823482348n;
+// const num = 23;
+// console.log(huge * BigInt(num));
 
-// Exceptions
-console.log(20n > 15);
-console.log(20n === 20);
-console.log(typeof 20n);
-console.log(20n == '20');
+// // Exceptions
+// console.log(20n > 15);
+// console.log(20n === 20);
+// console.log(typeof 20n);
+// console.log(20n == '20');
 
-console.log(huge + 'is REALLY big!!!');
+// console.log(huge + 'is REALLY big!!!');
 
-// Division
-console.log(11n / 3n);
-console.log(10 / 3);
+// // Division
+// console.log(11n / 3n);
+// console.log(10 / 3);
 
-// // // // ==========================================
-// // // // ==========================================
-// // // // ==========================================
-// // // // ==========================================
-// // // console.log('================================');
-// // // console.log('================================');
-// // // console.log('================================');
-// // // console.log('DATES AND TIMES');
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // // ==========================================
+// // // // console.log('================================');
+// // // // console.log('================================');
+// // // // console.log('================================');
+// // // // console.log('DATES AND TIMES');
 
-// const now = new Date();
-// console.log(now);
+// // const now = new Date();
+// // console.log(now);
 
-// console.log(new Date('December 24, 2015'));
+// // console.log(new Date('December 24, 2015'));
 
-// console.log(new Date(account1.movementsDates[0]));
+// // console.log(new Date(account1.movementsDates[0]));
 
-// console.log(new Date(0));
+// // console.log(new Date(0));
 
-const future = new Date(2037, 10, 19, 15, 23);
-console.log(future);
+// const future = new Date(2037, 10, 19, 15, 23);
+// console.log(future);
 
-console.log(Date.now());
+// console.log(Date.now());
 
-// ==========================================
-// ==========================================
-// ==========================================
-// ==========================================
-console.log('================================');
-console.log('================================');
-console.log('================================');
-console.log('DATES AND TIMES');
+// // ==========================================
+// // ==========================================
+// // ==========================================
+// // ==========================================
+// console.log('================================');
+// console.log('================================');
+// console.log('================================');
+// console.log('DATES AND TIMES');
 
-const future1 = new Date(2037, 10, 19, 15, 23);
-console.log(Number(future1));
-console.log(+future1); // same thing
+// const future1 = new Date(2037, 10, 19, 15, 23);
+// console.log(Number(future1));
+// console.log(+future1); // same thing
 
-const calcDaysPassed = (date1, date2) =>
-  Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+// const calcDaysPassed = (date1, date2) =>
+//   Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
 
-const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24));
-console.log(days1);
+// const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24));
+// console.log(days1);
 
-// ==========================================
-// ==========================================
-// ==========================================
-// ==========================================
-console.log('================================');
-console.log('================================');
-console.log('================================');
-console.log('INTERNATIONALIZING NUMBERS');
+// // ==========================================
+// // ==========================================
+// // ==========================================
+// // ==========================================
+// console.log('================================');
+// console.log('================================');
+// console.log('================================');
+// console.log('INTERNATIONALIZING NUMBERS');
 
-const num4 = 3884764.23;
+// const num4 = 3884764.23;
 
-const options = {
-  style: 'unit',
-  unit: 'mile-per-hour',
-};
+// const options = {
+//   style: 'unit',
+//   unit: 'mile-per-hour',
+// };
 
-console.log('US:', new Intl.NumberFormat('en-US', options).format(num4));
-console.log('Germany:', new Intl.NumberFormat('de-DE', options).format(num4));
-console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(num4));
-console.log(
-  navigator.language,
-  new Intl.NumberFormat(navigator.language, options).format(num4)
-);
+// console.log('US:', new Intl.NumberFormat('en-US', options).format(num4));
+// console.log('Germany:', new Intl.NumberFormat('de-DE', options).format(num4));
+// console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(num4));
+// console.log(
+//   navigator.language,
+//   new Intl.NumberFormat(navigator.language, options).format(num4)
+// );
+
+// // setTimeout
+// const ingredients = ['olives', 'spinach'];
+
+// const pizzaTimer = setTimeout(
+//   (ing1, ing2) =>
+//     console.log(`Here is your pizza with ${ing1} and ${ing2}!!! 🍕`),
+//   3000,
+//   ...ingredients
+// );
+// console.log('waiting...');
+
+// if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+// // setInterval
+// setInterval(function () {
+//   const now = new Date();
+//   console.log(now);
+// }, 1000);
